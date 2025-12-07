@@ -1,0 +1,21 @@
+node_modules
+npm-debug.log
+.env
+.env.local
+.git
+.gitignore
+README.md
+.DS_Store
+*.log
+
+# Client
+client/node_modules
+client/build
+client/.env
+
+# Development
+.vscode
+.idea
+
+# OS
+Thumbs.db
