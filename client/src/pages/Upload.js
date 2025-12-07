@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api';
 import './Upload.css';
 
 const Upload = () => {
@@ -23,7 +24,7 @@ const Upload = () => {
 
         try {
             setUploading(true);
-            await axios.post('http://localhost:5000/api/resumes/upload', formData, {
+            await axios.post(`${API_BASE_URL}/api/resumes/upload`, formData, {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'multipart/form-data'

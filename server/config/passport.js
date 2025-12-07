@@ -4,10 +4,16 @@ const User = require('../models/User');
 
 // Only configure Google Strategy if credentials are provided
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  // Build callback URL - use full URL in production, relative in development
+  const callbackURL = process.env.GOOGLE_CALLBACK_URL || 
+    (process.env.NODE_ENV === 'production' 
+      ? `${process.env.SERVER_URL || process.env.CLIENT_URL || 'https://your-server.com'}/api/auth/google/callback`
+      : '/api/auth/google/callback');
+
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL || "/api/auth/google/callback"
+    callbackURL: callbackURL
   }, async (accessToken, refreshToken, profile, done) => {
   try {
     // Check if user already exists

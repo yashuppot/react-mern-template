@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 import './Leaderboard.css';
 
 const Leaderboard = () => {
@@ -12,7 +13,7 @@ const Leaderboard = () => {
 
     const fetchLeaderboard = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/resumes/leaderboard');
+            const res = await axios.get(`${API_BASE_URL}/api/resumes/leaderboard`);
             setResumes(res.data);
             setLoading(false);
         } catch (err) {
@@ -48,7 +49,7 @@ const Leaderboard = () => {
                                         <td className="rank-cell">#{index + 1}</td>
                                         <td className="resume-cell">
                                             <a 
-                                                href={`http://localhost:5000/uploads/${resume.fileName}`} 
+                                                href={`${API_BASE_URL}/uploads/${resume.fileName}`}
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
                                             >

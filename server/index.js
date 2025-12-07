@@ -14,7 +14,7 @@ const app = express();
 
 // Middleware
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? [process.env.CLIENT_URL || 'https://your-app.onrender.com']
+  ? (process.env.CLIENT_URL ? [process.env.CLIENT_URL] : [])
   : ['http://localhost:3000'];
 
 app.use(cors({

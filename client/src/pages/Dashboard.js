@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import API_BASE_URL from '../config/api';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -27,7 +28,7 @@ const Dashboard = () => {
 
   const fetchUserResumes = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/resumes/mine', {
+      const res = await axios.get(`${API_BASE_URL}/api/resumes/mine`, {
         withCredentials: true
       });
       setResumes(res.data);

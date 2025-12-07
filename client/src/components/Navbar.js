@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../store/slices/authSlice';
+import API_BASE_URL from '../config/api';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -26,7 +27,7 @@ const Navbar = () => {
           <Link to="/upload" className="nav-link">Upload</Link>
           {!isAuthenticated && (
             <a 
-              href="http://localhost:5000/api/auth/google" 
+              href={`${API_BASE_URL}/api/auth/google`}
               className="nav-link"
             >
               Login

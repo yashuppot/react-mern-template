@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 import './Vote.css';
 
 const Vote = () => {
@@ -14,7 +15,7 @@ const Vote = () => {
   const fetchInitialPair = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/resumes/pair');
+      const res = await axios.get(`${API_BASE_URL}/api/resumes/pair`);
       setResumes(res.data.pair);
       setLoading(false);
     } catch (err) {
@@ -25,7 +26,7 @@ const Vote = () => {
 
   const fetchNewResume = async (excludeId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/resumes/random?excludeId=${excludeId}`);
+      const res = await axios.get(`${API_BASE_URL}/api/resumes/random?excludeId=${excludeId}`);
       return res.data;
     } catch (err) {
       console.error('Error fetching new resume:', err);
@@ -38,7 +39,7 @@ const Vote = () => {
     setAnimating(true);
 
     try {
-      const voteResponse = await axios.post('http://localhost:5000/api/resumes/vote', {
+      const voteResponse = await axios.post(`${API_BASE_URL}/api/resumes/vote`, {
         winnerId: winner._id,
         loserId: loser._id
       });
@@ -88,7 +89,7 @@ const Vote = () => {
           >
             <div className="pdf-preview">
               <iframe 
-                src={`http://localhost:5000/uploads/${resume.fileName}#zoom=115`} 
+                src={`${API_BASE_URL}/uploads/${resume.fileName}#zoom=115`}
                 title={resume.originalName}
                 className="pdf-iframe"
                 onError={(e) => console.error('PDF load error:', e)}

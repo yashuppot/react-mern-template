@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import API_BASE_URL from '../../config/api';
 
 // Async thunks
 export const checkAuthStatus = createAsyncThunk(
   'auth/checkAuthStatus',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/auth/me', {
+      const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
         withCredentials: true
       });
       return response.data;
@@ -20,7 +21,7 @@ export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/auth/logout', {}, {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/logout`, {}, {
         withCredentials: true
       });
       return response.data;
