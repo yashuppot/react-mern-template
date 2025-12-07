@@ -4,6 +4,7 @@ const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 require('dotenv').config();
 
 // Import passport configuration
@@ -44,6 +45,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/resumes', require('./routes/resumes'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Log all requests
 app.use((req, res, next) => {

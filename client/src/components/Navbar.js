@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../store/slices/authSlice';
 import './Navbar.css';
@@ -15,7 +16,14 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-brand">
-          <h2>MERN Auth</h2>
+          <Link to="/" className="brand-link">ResumeSmash</Link>
+        </div>
+        
+        <div className="navbar-links">
+          <Link to="/" className="nav-link">Vote</Link>
+          <Link to="/leaderboard" className="nav-link">Leaderboard</Link>
+          <Link to="/upload" className="nav-link">Upload</Link>
+          {!isAuthenticated && <Link to="/login" className="nav-link">Login</Link>}
         </div>
         
         {isAuthenticated && (

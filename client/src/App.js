@@ -6,6 +6,9 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import Vote from './pages/Vote';
+import Upload from './pages/Upload';
+import Leaderboard from './pages/Leaderboard';
 import './App.css';
 
 function App() {
@@ -30,9 +33,13 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
+          <Route path="/" element={<Vote />} />
+          <Route path="/vote" element={<Vote />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/upload" element={<Upload />} />
           <Route 
             path="/login" 
-            element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} 
+            element={isAuthenticated ? <Navigate to="/" /> : <Login />} 
           />
           <Route 
             path="/dashboard" 
@@ -41,10 +48,6 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             } 
-          />
-          <Route 
-            path="/" 
-            element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />} 
           />
         </Routes>
       </div>

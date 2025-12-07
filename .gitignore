@@ -25,6 +25,9 @@ pids
 coverage/
 *.lcov
 
+# Uploads
+uploads/
+
 # nyc test coverage
 .nyc_output
 

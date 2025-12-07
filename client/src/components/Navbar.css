@@ -1,62 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
 .navbar {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  padding: 0 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
 .navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 65px;
 }
 
-.navbar-brand h2 {
-  color: #333;
-  font-size: 24px;
+.brand-link {
+  background: linear-gradient(to right, #ffffff 0%, #ffd166 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: white; /* Fallback */
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  transition: all 0.3s;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.brand-link:hover {
+  letter-spacing: 0px;
+  transform: translateY(-1px);
+  text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
   font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 .navbar-menu {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .navbar-user {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.75rem;
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .user-name {
-  color: #333;
-  font-weight: 500;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .logout-btn {
-  background-color: #dc3545;
-  color: white;
+  background: white;
+  color: #667eea;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.3px;
 }
 
 .logout-btn:hover {
-  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
 }

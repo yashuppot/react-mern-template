@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap');
+
+.vote-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 1rem 2rem;
+  position: relative;
+}
+
+.vote-title {
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  letter-spacing: -2px;
+  font-family: 'Space Grotesk', sans-serif;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem 3rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.resume-battle-ground {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 2200px;
+  height: 88vh;
+  margin-top: 0.5rem;
+  position: relative;
+}
+
+.resume-card {
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 1050px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.resume-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.pdf-preview {
+  flex: 1;
+  width: 100%;
+  background: #f8f9fa;
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.pdf-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: auto;
+}
+
+.resume-info {
+  padding: 1rem;
+  background: white;
+  border-top: 1px solid #edf2f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resume-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Space Grotesk', sans-serif;
+  background: #f7fafc;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  border: 1px solid #e2e8f0;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.star-icon {
+  font-size: 1.25rem;
+  color: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.3));
+}
+
+.rating-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+  letter-spacing: -0.5px;
+}
+
+.vote-overlay {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.vote-overlay span {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+  pointer-events: auto;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.resume-card:hover .vote-overlay span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vs-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: #667eea;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.75rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  z-index: 20;
+  border: 3px solid rgba(255,255,255,0.9);
+}
+
+.loading {
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
