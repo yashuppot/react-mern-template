@@ -4,11 +4,29 @@ const User = require('../models/User');
 
 // Only configure Google Strategy if credentials are provided
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-  // Build callback URL - use full URL in production, relative in development
-  const callbackURL = process.env.GOOGLE_CALLBACK_URL || 
-    (process.env.NODE_ENV === 'production' 
-      ? `${process.env.SERVER_URL || process.env.CLIENT_URL || 'https://your-server.com'}/api/auth/google/callback`
-      : '/api/auth/google/callback');
+  // Build callback URL - MUST be full URL in production
+  let callbackURL;
+  
+  if (process.env.GOOGLE_CALLBACK_URL) {
+    // Use explicitly set callback URL
+    callbackURL = process.env.GOOGLE_CALLBACK_URL;
+  } else if (process.env.NODE_ENV === 'production') {
+    // In production, construct from SERVER_URL
+    const serverUrl = process.env.SERVER_URL || process.env.CLIENT_URL;
+    if (!serverUrl) {
+      console.error('ERROR: SERVER_URL or CLIENT_URL must be set in production for Google OAuth callback!');
+      callbackURL = '/api/auth/google/callback'; // Fallback, but will likely fail
+    } else {
+      // Ensure it's a full URL (add https:// if missing, remove trailing slash)
+      const baseUrl = serverUrl.replace(/\/$/, '');
+      callbackURL = `${baseUrl}/api/auth/google/callback`;
+    }
+  } else {
+    // Development - use relative URL
+    callbackURL = '/api/auth/google/callback';
+  }
+
+  console.log(`Google OAuth callback URL configured: ${callbackURL}`);
 
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
