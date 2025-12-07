@@ -22,8 +22,16 @@ const Navbar = () => {
         <div className="navbar-links">
           <Link to="/" className="nav-link">Vote</Link>
           <Link to="/leaderboard" className="nav-link">Leaderboard</Link>
+          {isAuthenticated && <Link to="/dashboard" className="nav-link">Dashboard</Link>}
           <Link to="/upload" className="nav-link">Upload</Link>
-          {!isAuthenticated && <Link to="/login" className="nav-link">Login</Link>}
+          {!isAuthenticated && (
+            <a 
+              href="http://localhost:5000/api/auth/google" 
+              className="nav-link"
+            >
+              Login
+            </a>
+          )}
         </div>
         
         {isAuthenticated && (

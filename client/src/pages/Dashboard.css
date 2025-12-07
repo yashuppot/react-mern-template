@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap');
 
 .dashboard-container {
   min-height: calc(100vh - 65px);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 3rem 2rem;
+  padding: 2rem;
 }
 
 .dashboard-content {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -17,60 +17,182 @@
 }
 
 .dashboard-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
   color: white;
-  margin-bottom: 1rem;
-  font-family: 'Inter', sans-serif;
-  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -1.5px;
 }
 
 .dashboard-subtitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
-.user-resumes {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.resume-item {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  transition: all 0.3s;
-}
-
-.resume-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-
-.resume-item h3 {
-  color: #2d3748;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-}
-
-.resume-stats {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.9rem;
-  color: #718096;
-  margin-bottom: 0.5rem;
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: white;
+  padding: 4rem;
 }
 
 .no-resumes {
   text-align: center;
   padding: 4rem 2rem;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 16px;
   color: white;
+}
+
+.no-resumes h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.no-resumes p {
   font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.upload-btn-link {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Inter', sans-serif;
+}
+
+.upload-btn-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.resumes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 2rem;
+}
+
+.resume-card-dashboard {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
+
+.resume-card-dashboard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.resume-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #edf2f7;
+}
+
+.resume-title {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  flex: 1;
+  word-break: break-word;
+  margin-right: 1rem;
+}
+
+.resume-date {
+  color: #718096;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-box {
+  background: #f7fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.rating-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.rating-box .stat-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.rating-box .stat-value {
+  color: white;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #718096;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2d3748;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.wins {
+  color: #48bb78;
+}
+
+.losses {
+  color: #f56565;
+}
+
+.graph-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #edf2f7;
+}
+
+.graph-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #718096;
+  font-style: italic;
 }

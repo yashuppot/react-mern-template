@@ -38,20 +38,29 @@ const Vote = () => {
     setAnimating(true);
 
     try {
-      await axios.post('http://localhost:5000/api/resumes/vote', {
+      const voteResponse = await axios.post('http://localhost:5000/api/resumes/vote', {
         winnerId: winner._id,
         loserId: loser._id
       });
+
+      // Update winner with new rating
+      const updatedWinner = {
+        ...winner,
+        rating: voteResponse.data.winnerCurrentRating,
+        wins: winner.wins + 1
+      };
 
       const newOpponent = await fetchNewResume(winner._id);
       
       if (newOpponent) {
         const loserIndex = resumes.indexOf(loser);
+        const winnerIndex = resumes.indexOf(winner);
         
         setTimeout(() => {
             setResumes(prev => {
                 const newPair = [...prev];
                 newPair[loserIndex] = newOpponent;
+                newPair[winnerIndex] = updatedWinner; // Update winner with new rating
                 return newPair;
             });
             setAnimating(false);

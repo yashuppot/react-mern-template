@@ -19,6 +19,16 @@ const resumeSchema = new mongoose.Schema({
     default: 1200,
     index: true
   },
+  ratingHistory: [{
+    rating: {
+      type: Number,
+      required: true
+    },
+    timestamp: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   wins: {
     type: Number,
     default: 0

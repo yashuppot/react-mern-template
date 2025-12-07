@@ -166,8 +166,16 @@ router.post('/vote', async (req, res) => {
     const expectedScoreWinner = 1 / (1 + Math.pow(10, (loser.rating - winner.rating) / 400));
     const expectedScoreLoser = 1 / (1 + Math.pow(10, (winner.rating - loser.rating) / 400));
 
-    winner.rating = Math.round(winner.rating + K * (1 - expectedScoreWinner));
-    loser.rating = Math.round(loser.rating + K * (0 - expectedScoreLoser));
+    const newWinnerRating = Math.round(winner.rating + K * (1 - expectedScoreWinner));
+    const newLoserRating = Math.round(loser.rating + K * (0 - expectedScoreLoser));
+
+    // Update ratings
+    winner.rating = newWinnerRating;
+    loser.rating = newLoserRating;
+
+    // Track rating history
+    winner.ratingHistory.push({ rating: newWinnerRating, timestamp: new Date() });
+    loser.ratingHistory.push({ rating: newLoserRating, timestamp: new Date() });
 
     winner.wins += 1;
     loser.losses += 1;
