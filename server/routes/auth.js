@@ -8,13 +8,15 @@ router.get('/google',
 );
 
 router.get('/google/callback', (req, res) => {
+  const clientUrl = process.env.CLIENT_URL || 'http://localhost:3000';
+  
   if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-    passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login' })(req, res, () => {
+    passport.authenticate('google', { failureRedirect: `${clientUrl}/login` })(req, res, () => {
       // Successful authentication, redirect to frontend
-      res.redirect('http://localhost:3000/dashboard');
+      res.redirect(`${clientUrl}/dashboard`);
     });
   } else {
-    res.redirect('http://localhost:3000/login?error=oauth_not_configured');
+    res.redirect(`${clientUrl}/login?error=oauth_not_configured`);
   }
 });
 
