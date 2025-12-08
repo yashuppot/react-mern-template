@@ -89,7 +89,7 @@ const Vote = () => {
           >
             <div className="pdf-preview">
               <iframe 
-                src={`${resume.cloudinaryUrl || `${API_BASE_URL}/uploads/${resume.fileName}`}#zoom=115`}
+                src={`${resume.cloudinaryUrl || `${API_BASE_URL}/uploads/${resume.fileName}`}#zoom=95`}
                 title={resume.originalName}
                 className="pdf-iframe"
                 onError={(e) => console.error('PDF load error:', e)}

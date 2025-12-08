@@ -71,6 +71,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/resumes', require('./routes/resumes'));
+app.use('/api/deface', require('./routes/defacer'));
 // Removed static uploads route - files are now served from Cloudinary
 
 // Serve React static files in production
