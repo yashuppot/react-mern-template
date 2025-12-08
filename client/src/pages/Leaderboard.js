@@ -49,7 +49,7 @@ const Leaderboard = () => {
                                         <td className="rank-cell">#{index + 1}</td>
                                         <td className="resume-cell">
                                             <a 
-                                                href={`${API_BASE_URL}/uploads/${resume.fileName}`}
+                                                href={resume.cloudinaryUrl || `${API_BASE_URL}/uploads/${resume.fileName}`}
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
                                             >

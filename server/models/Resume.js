@@ -8,7 +8,15 @@ const resumeSchema = new mongoose.Schema({
   },
   fileName: {
     type: String,
+    required: false // Keep for backward compatibility
+  },
+  cloudinaryUrl: {
+    type: String,
     required: true
+  },
+  cloudinaryPublicId: {
+    type: String,
+    required: false
   },
   originalName: {
     type: String,

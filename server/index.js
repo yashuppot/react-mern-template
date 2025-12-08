@@ -71,21 +71,21 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/resumes', require('./routes/resumes'));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Removed static uploads route - files are now served from Cloudinary
 
 // Serve React static files in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
   
-  // Catch-all for React routes - but skip API routes
-  app.get('*', (req, res, next) => {
-    // Skip API routes, uploads, and other non-React routes
-    if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/')) {
-      return next(); // Let Express handle 404 for unmatched API routes
-    }
-    // Only serve React app for non-API routes
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
+      // Catch-all for React routes - but skip API routes
+      app.get('*', (req, res, next) => {
+        // Skip API routes
+        if (req.path.startsWith('/api/')) {
+          return next(); // Let Express handle 404 for unmatched API routes
+        }
+        // Only serve React app for non-API routes
+        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+      });
 }
 
 // Test route

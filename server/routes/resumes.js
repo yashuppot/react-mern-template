@@ -1,18 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Resume = require('../models/Resume');
 
-// Multer config
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '..', 'uploads'))
+// Configure Cloudinary
+// CLOUDINARY_URL format: cloudinary://api_key:api_secret@cloud_name
+if (process.env.CLOUDINARY_URL) {
+  // CLOUDINARY_URL automatically configures everything
+  cloudinary.config();
+} else {
+  // Fallback to individual env vars if CLOUDINARY_URL not set
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+}
+
+// Cloudinary storage for Multer
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: 'resumesmash/resumes', // Folder in Cloudinary
+      resource_type: 'raw', // Use 'raw' for files to treat them as files (better for PDFs)
+      type: 'upload', // Explicitly set to 'upload' (public) to avoid ACL issues
+      // format: 'pdf', // Not needed/allowed for raw
+      public_id: `${Date.now()}-${file.originalname}`, // Keep extension for raw files
+    };
   },
-  filename: function (req, file, cb) {
-    // Keep original extension, add specific timestamp to ensure uniqueness
-    cb(null, Date.now() + '-' + file.originalname)
-  }
 });
 
 const upload = multer({ 
@@ -23,7 +41,10 @@ const upload = multer({
     } else {
       cb(new Error('Only PDFs are allowed!'), false);
     }
-  } 
+  },
+  limits: {
+    fileSize: 10 * 1024 * 1024 // 10MB limit
+  }
 });
 
 // Middleware to check if user is authenticated (for uploads)
@@ -41,15 +62,20 @@ router.post('/upload', ensureAuth, upload.single('resume'), async (req, res) => 
   try {
     console.log('Upload route hit');
     console.log('User:', req.user);
-    console.log('File:', req.file);
+    console.log('File uploaded details:', req.file);
     
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
 
+    // req.file.path or req.file.secure_url is the Cloudinary URL
+    // req.file.public_id is the Cloudinary public ID
+    const cloudinaryUrl = req.file.secure_url || req.file.path;
+    
     const newResume = await Resume.create({
       user: req.user._id,
-      fileName: req.file.filename,
+      cloudinaryUrl: cloudinaryUrl,
+      cloudinaryPublicId: req.file.public_id,
       originalName: req.file.originalname,
       // Default rating 1200
     });
