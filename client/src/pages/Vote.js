@@ -7,6 +7,7 @@ const Vote = () => {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [animating, setAnimating] = useState(false);
+  const [votingFor, setVotingFor] = useState(null);
 
   useEffect(() => {
     fetchInitialPair();
@@ -35,8 +36,9 @@ const Vote = () => {
   };
 
   const handleVote = async (winner, loser) => {
-    if (animating) return;
+    if (animating || votingFor) return; // Prevent multiple clicks
     setAnimating(true);
+    setVotingFor(winner._id);
 
     try {
       const voteResponse = await axios.post(`${API_BASE_URL}/api/resumes/vote`, {
@@ -65,14 +67,17 @@ const Vote = () => {
                 return newPair;
             });
             setAnimating(false);
+            setVotingFor(null);
         }, 500);
       } else {
          setAnimating(false);
+         setVotingFor(null);
       }
 
     } catch (err) {
       console.error('Vote error:', err);
       setAnimating(false);
+      setVotingFor(null);
     }
   };
 
@@ -102,8 +107,15 @@ const Vote = () => {
               </div>
             </div>
             <div className="vote-overlay">
-              <span onClick={() => handleVote(resume, resumes[index === 0 ? 1 : 0])}>
-                Vote!
+              <span 
+                onClick={() => handleVote(resume, resumes[index === 0 ? 1 : 0])}
+                className={votingFor === resume._id ? 'voting' : ''}
+              >
+                {votingFor === resume._id ? (
+                  <div className="dots-spinner">
+                    <div></div><div></div><div></div>
+                  </div>
+                ) : 'Vote!'}
               </span>
             </div>
           </div>
