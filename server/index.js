@@ -24,6 +24,19 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+// Rate limiting
+const rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again after 15 minutes',
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter);
+
 // Trust proxy for Railway/Heroku/etc (required for cookies to work behind proxy)
 if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
